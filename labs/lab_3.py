@@ -82,6 +82,7 @@ def factorials():
         counter += 1
         actual *= (counter)
 
+
 import types
 
 print(isinstance(factorials(), types.GeneratorType))
@@ -89,3 +90,60 @@ print(isinstance(factorials(), types.GeneratorType))
 results = [1, 1, 2, 6, 24, 120, 720, 5040]
 for truth, answer in zip(results, factorials()):
     print(truth, truth == answer)
+
+from random import random
+
+
+class cached(object):
+    def __init__(self, func):
+        self.func = func
+        self.called_counter = 0
+        self.evaluated_counter = 0
+        self.invocation_map = {}
+
+    def __call__(self, *args, **kwargs):
+        converted = wrap(args, kwargs)
+        self.called_counter += 1
+        if (converted) in self.invocation_map.keys():
+            return self.invocation_map[converted]
+        else:
+            self.evaluated_counter += 1
+            self.invocation_map[converted] = self.func(args, kwargs)
+            return self.invocation_map[wrap(args, kwargs)]
+
+    def cache_reset(self):
+        self.invocation_map.clear()
+
+    def cache_status(self):
+        return 'Function foo called ' + str(self.called_counter) + ' times, evaluated ' + str(
+            self.evaluated_counter) + ' times'
+
+
+def wrap(args, kwargs):
+    key = str(sorted(args)) + str(sorted([str(k) for k in kwargs]))
+    return key
+
+
+@cached
+def foo(x, y=1, z=4):
+    return random()
+
+
+print(foo(3) == foo(3))
+print(foo(4) == foo(4))
+print(foo(3, z=-1, y=3) == foo(3, y=3, z=-1))
+print(foo(3) != foo(x=3))
+a = foo(3)
+foo.cache_reset()
+print(a != foo(3))
+print(foo.cache_status() == 'Function foo called 10 times, evaluated 5 times')
+
+
+def f(n):
+    for i in range(2, n - 1):
+        if not n % i:
+            return False
+    return True
+
+
+print(f(8))
