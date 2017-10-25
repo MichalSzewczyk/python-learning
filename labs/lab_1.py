@@ -15,6 +15,7 @@ print(sum_of_multiples(5) == 1050)
 print(sum_of_multiples(17) == 255)
 print(sum_of_multiples(69) == 69)
 
+
 # 1.2. Funkcja powinna zwrócić liste liczb pierwszych mniejszych od n
 
 
@@ -41,6 +42,7 @@ print(primes_less_than(5) == [2, 3])
 print(primes_less_than(10) == [2, 3, 5, 7])
 print(primes_less_than(20) == [2, 3, 5, 7, 11, 13, 17, 19])
 
+
 # 1.3. Funkcja sprawdza czy *word* jest palindromem
 
 
@@ -52,6 +54,7 @@ print(is_palindrome('ala') == True)
 print(is_palindrome('ananas') == False)
 print(is_palindrome('ananasa') == False)
 print(is_palindrome('tomek') == False)
+
 
 # 1.4 Zwraca liczbę unikalnych znaków w słowie.
 # Możemy założyć, że słowo składa się z małych liter alfabetu angielskiego
@@ -71,6 +74,7 @@ print(how_many_different_letters('tomek') == 5)
 print(how_many_different_letters('ala') == 2)
 print(how_many_different_letters('ananas') == 3)
 print(how_many_different_letters('jola') == 4)
+
 
 # 1.5. Funkcja przyjmuje 9-elementową liste i na jej podstawie tworzy stringa z HTMLową tabelą orzmiaru 3x3
 #     reprezentującą plansze do gry w kółko i krzyżyk
@@ -114,6 +118,7 @@ def how_many_integers_normal(number, allowed_digits):
         counter += 1
     return counter
 
+
 # short version: 94 chars
 
 
@@ -126,6 +131,7 @@ def how_many_integers(n, d):
                 break
         r += 1
     return r
+
 
 digits = [0, 2, 7, 9]
 print(how_many_integers(1, digits) == 0)
