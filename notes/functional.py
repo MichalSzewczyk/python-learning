@@ -46,3 +46,29 @@ if not all([False, True, True, False]):
 # verify if any of elements in list is true:
 if any([False, True, True, False]):
     print('There is element which is True')
+
+# List comprehensions vs map+filter
+# comprehensions buffers all elements so takes memory n
+# map/filter computes elements only when ask
+# comprehensions are in general faster then map/reduce - map/reduce as functions puts new frame on stack
+
+# Lambda expressions - anonymous, on-the-fly, unnamed functions
+func = lambda params: print(params)
+
+
+# Function declaration binds name to function
+def f_name(params):
+    print(params)
+
+
+# Lambda creates function objects without naming them:
+lambda params: print(params)
+
+# Lambda can have single param:
+lambda param: print(param)
+
+# Fixed number of params:
+lambda param_1, param_2, param_3: print(param_1 + param_2 + param_3)
+
+# Or have any other argument type
+lambda **kwargs: print(kwargs)
