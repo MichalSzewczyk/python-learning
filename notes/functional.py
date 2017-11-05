@@ -72,3 +72,14 @@ lambda param_1, param_2, param_3: print(param_1 + param_2 + param_3)
 
 # Or have any other argument type
 lambda **kwargs: print(kwargs)
+
+# Lambda usages:
+func = lambda x: print(x)
+
+(lambda x: print(x))(10)
+
+map(lambda x: x * x, range(10))
+
+filter(lambda x: x % 5, range(10))
+
+print([i for i in range(10)].sort(lambda x, y: x > y))
