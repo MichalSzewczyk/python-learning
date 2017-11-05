@@ -1,3 +1,56 @@
+# iterator - object which represents finite or infinite data streams.
+# Example iterator:
+import functools
+
+iterator = iter([1, 2, 3])
+
+# get next element from iterator:
+# if iterator is empty rises StopIteration error
+next(iterator)
+
+# use iter(structure) to build iterator from data structure
+iter([1, 2, 3])
+
+# iterator sees changes to the underlying data structure:
+list = [x for x in range(10)]
+list_iterator = iter(list)
+list.remove(5)
+result = functools.reduce(lambda x, y: str(x) + str(y), list_iterator)
+print('result: ' + result)
+
+# methods which takes iterator as argument
+# consumes iterable until the result is unknown:
+list = [1, 2, 3]
+
+# maximum element of the iterable:
+max(list)
+
+# minimum element of the iterable:
+min(list)
+
+# verification if value is in iterable:
+print('foo' in list)
+
+# verification if value isn't in iterable:
+print('foo' not in list)
+
+# returns true if all elements in iterable are true:
+all(list)
+
+# return true if any of elements in iterable is true:
+any(list)
+
+# Methods that returns an iterator:
+
+# returns tuples: (i, value) where i is an index and value i'th value from iterator
+for i, j in enumerate([1, 2, 3, 4, ]):
+    print('{} on index {}'.format(i, j))
+
+# returns tuples (iter_1[i], iter_2[i], .., iter_n[i]). The number of elements in this
+# iterator is equal to number of elements in shortest of the iterators:
+for i in zip([1, 2, 3, 4], [1, 2, 3], [5, 6, 7]):
+    print(i)
+
 # Tools to play with iterators
 import itertools
 from functools import reduce
@@ -51,5 +104,5 @@ result = reduce(lambda x, y: str(x) + str(y), itertools.combinations(range(10), 
 print(result)
 
 # tee returns n iterators from single iterator:
-result = reduce(lambda x,y: str(x)+str(y), map(lambda x: list(x), itertools.tee(range(20), 5)))
+result = reduce(lambda x, y: str(x) + str(y), map(lambda x: list(x), itertools.tee(range(20), 5)))
 print(result)
