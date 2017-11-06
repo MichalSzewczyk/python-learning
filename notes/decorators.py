@@ -76,3 +76,24 @@ def slow_method(n):
 
 slow_method(2)
 
+
+# It is also possible to define decorators with arguments. Example:
+def parametrized_decorator(x):
+    def internal_decorator(fn):
+        def decorating_function(*args, **kwargs):
+            print('Decorator parameter: {}'.format(x))
+            result = fn(*args, **kwargs)
+            print('Method {} executed.'.format(fn.__name__))
+            return result
+
+        return decorating_function
+
+    return internal_decorator
+
+
+@parametrized_decorator('foo')
+def method():
+    print('Executing method.')
+
+
+method()
