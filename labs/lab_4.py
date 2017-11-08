@@ -93,3 +93,68 @@ def f(x):
 def g(x):
     return x * x * x + 3
 
+
+def test(a, b, eps=1):
+    return abs(round(a) - round(b)) < eps
+
+
+print(test(f(100), 200.0))
+print(round(f(0)) == 0.0)
+
+print(test(g(100), 30000.0))
+print(round(g(0)) == 0.0)
+
+from random import random
+
+for x in [random() * 1000. for _ in range(20)]:
+    print(f(x), 2 * x, '\t', test(f(x), 2 * x))
+    print(g(x), 3 * x ** 2, '\t', test(g(x), 3 * x ** 2))
+
+
+def accepts(*types):
+    """Sprawdza czy udekorowanej funckji zostały podane odpowiednie parametry zdefiniowane
+       w argumentach dekoratora"""
+
+    def decorator(fn):
+        def decorate(*args, **kwargs):
+            for x in filter(lambda t: type(t[1]) is not t[0], zip(types, chain(args, kwargs.values()))):
+                raise TypeError('Arguments not matched: {} - {}'.format(x[0], x[1]))
+            return fn(*args, **kwargs)
+
+        return decorate
+
+    return decorator
+
+
+@accepts(str)
+def capitalize(word):
+    return word[0].upper() + word[1:]
+
+
+print(capitalize('ola') == 'Ola')
+
+try:
+    capitalize(2)
+except TypeError:
+    print(True)
+
+
+@accepts(float, int)
+def static_pow(base, exp):
+    return base ** exp
+
+
+print(static_pow(2., 2) == 4.)
+print(static_pow(2., exp=2) == 4.)
+print(static_pow(base=2., exp=2) == 4.)
+
+try:
+    static_pow('x', 10)
+except TypeError:
+    print(True)
+
+try:
+    static_pow(2, 2.2)
+except TypeError:
+    print(True)
+
