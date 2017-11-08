@@ -184,3 +184,42 @@ for i in lotto():
     print(i)
 
 
+def natural_numbers(k=0):
+    """Tworzy generator liczb naturalnych od liczby k"""
+    while True:
+        yield k
+        k += 1
+
+
+import types
+
+print(isinstance(natural_numbers(), types.GeneratorType))
+
+for i, n in enumerate(natural_numbers()):
+    print(i, i == n)
+    if i > 20:
+        break
+
+for i, n in enumerate(natural_numbers(1)):
+    print(i, i + 1 == n)
+    if i > 20:
+        break
+
+
+def factorials():
+    """Tworzy generator kolejnych silnii"""
+    counter = 0
+    result = 1
+    while True:
+        yield result
+        counter += 1
+        result *= counter
+
+
+import types
+
+print('Is instance: {}'.format(isinstance(factorials(), types.GeneratorType)))
+
+results = [1, 1, 2, 6, 24, 120, 720, 5040]
+for truth, answer in zip(results, factorials()):
+    print(truth, truth == answer)
