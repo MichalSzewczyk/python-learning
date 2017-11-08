@@ -117,6 +117,7 @@ def zwroc_rosnace_wzgledem_popredniego(fn, *args):
         prev = actual
     return result
 
+
 def f1(n):
     return n ** 2 - 3 * n
 
@@ -129,6 +130,23 @@ def f3(word):
     return word[::-1]
 
 
-print(zwroc_rosnace_wzgledem_popredniego(f1, 4, -5, 6, 2)== [-5])
+print(zwroc_rosnace_wzgledem_popredniego(f1, 4, -5, 6, 2) == [-5])
 print(zwroc_rosnace_wzgledem_popredniego(f2, *range(100)) == [])
+
+
+class Outer:
+    counter = 0
+
+
+def ile_wywolana():
+    Outer.counter += 1
+
+    return Outer.counter
+
+
 print(zwroc_rosnace_wzgledem_popredniego(f3, "python", "nie", "jest", "bardzo", "fajny") == ['jest', 'fajny'])
+
+print(ile_wywolana() == 1)
+print(ile_wywolana() == 2)
+print(ile_wywolana() == 3)
+
