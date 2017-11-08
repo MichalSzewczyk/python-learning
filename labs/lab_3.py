@@ -1,6 +1,8 @@
 from functools import reduce
 from itertools import chain
 
+import collections
+
 
 def log(text, optional=None):
     " Wypisuje wiadomosc opcjonalnie wraz z podaną wartoscią "
@@ -60,6 +62,8 @@ def show_my_kwargs(**kwargs):  # a
 
 print(show_my_kwargs() == "")
 print(show_my_kwargs(a=1, b="1", c=1.1) == "a:1\nc:1.1\nb:1")  # moze nie wyjsc z powodu innej kolejnosci
+
+
 # print(show_my_kwargs(1))  # TypeError
 
 
@@ -70,3 +74,13 @@ def show_my_args_kwargs(*args, **kwargs):
 
 print(show_my_args_kwargs(1, b="1", c=1.1))
 
+
+def numbers_to_percents(values):
+    values_sum = sum(values)
+    return list(map(lambda v: v / values_sum if not isinstance(v, collections.Iterable) else 0, values))
+
+
+print(numbers_to_percents([1, 2, 1]) == [0.25, 0.5, 0.25])
+print(numbers_to_percents([1]) == [1])
+print(numbers_to_percents([1, 2, 3, 4]) == [0.1, 0.2, 0.3, 0.4])
+print(numbers_to_percents(i for i in range(5)))
