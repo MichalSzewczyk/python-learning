@@ -150,3 +150,23 @@ print(ile_wywolana() == 1)
 print(ile_wywolana() == 2)
 print(ile_wywolana() == 3)
 
+
+def get_primes(number):
+    primes = []
+    counter = 2
+    while True:
+        is_prime = True
+        for i in primes:
+            if counter % i is 0:
+                is_prime = False
+                break
+        if is_prime:
+            primes.append(counter)
+            if counter >= number:
+                yield counter
+        counter += 1
+
+
+for i in get_primes(10):
+    print(i)
+print(get_primes(10))
