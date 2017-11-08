@@ -57,5 +57,24 @@ class decorator:
 def test():
     print('test')
 
+
 test()
 test.cache_reset()
+
+# what is false in python
+# None
+print(bool(None) == False)
+# zero
+print(bool(0) == False)
+print(bool(0.0) == False)
+# empty string
+print(bool('') == False)
+# empty collection
+print(bool([]) == False)
+
+# So as a consequence of fact that empty collection is false, we can easily do the check if collection is empty:
+d = {}
+if d:
+    print('Not empty')
+else:
+    print('Empty')
