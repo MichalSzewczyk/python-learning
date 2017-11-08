@@ -52,3 +52,44 @@ def squares_comprehension(n):
     return [i ** 2 for i in range(n)]
 
 
+@time
+def squares_map(n):
+    return map(lambda x: x ** 2, range(n))
+
+
+n = 1000000
+l = squares_list(n)
+c = squares_comprehension(n)
+m = squares_map(n)
+
+import sys
+
+sys.float_info.epsilon  # epsilon maszynowy
+
+
+def derivate(epsilon=None):
+    """
+   Zwraca pochodną funkcji w punkcie, wg. wzoru f'(x) = [f(x+h) - f(x)]/h,
+   gdzie h jest parametrem dekoratora, jeśli nie zostanie podany, należy przyjąć 1000 * epsilon maszynowy
+   """
+    if epsilon is None:
+        epsilon = 1000 * sys.float_info.epsilon
+
+    def decorator(fn):
+        def decorate(x):
+            return (fn(x + epsilon) - fn(x)) / epsilon
+
+        return decorate
+
+    return decorator
+
+
+@derivate(0.01)
+def f(x):
+    return x * x
+
+
+@derivate(0.00001)
+def g(x):
+    return x * x * x + 3
+
