@@ -158,3 +158,147 @@ try:
 except TypeError:
     print(True)
 
+
+def returns(*types):
+    """Sprawdza czy udekorowana funkcja zwraca poprawne argumenty, zdefiniowane w parametrach dekoratora"""
+
+    def decorator(fn):
+        def decorating(*args, **kwargs):
+            result = fn(*args, **kwargs)
+            filter(lambda t: type(t[0]) == t[1], zip(result, types))
+            return result
+
+        return decorating
+
+    return decorator
+
+
+@returns(str)
+def str_only_identity(word):
+    return word
+
+
+print(str_only_identity('hello') == 'hello')
+
+try:
+    str_only_identity(10)
+except TypeError:
+    print(True)
+
+
+@returns(int, int)
+def split_indices(x):
+    return x[0], x[1]
+
+
+print(split_indices(x=[6, 9]) == (6, 9))
+
+try:
+    split_indices('AB')
+except TypeError:
+    print(True)
+
+from random import random
+
+
+class cached:
+    def __init__(self, fn):
+        self.fn = fn
+        self.fn.cache_reset = self.cache_reset
+        self.dictionary = {}
+
+        self.evaluation_counter = 0
+        self.execution_counter = 0
+        self.fn.cache_status = self.cache_status
+
+    def __call__(self, *args, **kwargs):
+        self.execution_counter += 1
+        args_code = ''
+        for i in args:
+            args_code += str(i)
+
+        reduced_args = reduce(lambda l, r: l + r, sorted(map(lambda v: str(v), kwargs)), '')
+        args_code += reduced_args
+        if args_code in self.dictionary.keys():
+            result = self.dictionary[args_code]
+        else:
+            result = self.fn(*args, **kwargs)
+            self.dictionary[args_code] = result
+            self.evaluation_counter += 1
+        return result
+
+    def cache_reset(self):
+        self.dictionary.clear()
+
+    def cache_status(self):
+        return 'Function {} called {} times, evaluated {} times'.format(self.fn.__name__, self.execution_counter,
+                                                                        self.evaluation_counter)
+
+
+@cached
+def foo(x, y=1, z=4):
+    return random()
+
+
+print(foo(3) == foo(3))
+print(foo(4) == foo(4))
+print(foo(3, z=-1, y=3) == foo(3, y=3, z=-1))
+print(foo(3) != foo(x=3))
+a = foo(3)
+foo.cache_reset()
+print(a != foo(3))
+print(foo.cache_status() == 'Function foo called 10 times, evaluated 5 times')
+
+
+def zlozenie(n):
+    def decorator(fn):
+        def decorating(*args, **kwargs):
+            result = None
+            for _ in range(n):
+                if result is None:
+                    result = fn(*args, **kwargs)
+                else:
+                    result = fn(result)
+            return result
+
+        return decorating
+
+    return decorator
+
+
+@zlozenie(3)
+def f1(x):
+    return x + 1
+
+
+@zlozenie(2)
+def f2(x):
+    return x * x
+
+
+@zlozenie(5)
+def f3(word):
+    return "".join(chr(ord(l) + 1) for l in word)
+
+
+print(f1(2) == 5)
+print(f2(3) == 81)
+print(f3("alamakota") == "fqfrfptyf")
+
+dictionary = {
+    1: (lambda x, y: y * y),
+    2: (lambda x, y: x + y),
+    3: (lambda x, y: x * y),
+    4: (lambda x, y: 0),
+
+}
+
+
+def my_function(x, y):
+    return dictionary[x](x, y)
+
+
+print(my_function(1, 3) == 9)
+print(my_function(2, 4) == 6)
+print(my_function(3, 1) == 3)
+print(my_function(4, 9) == 0)
