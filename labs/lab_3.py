@@ -84,3 +84,51 @@ print(numbers_to_percents([1, 2, 1]) == [0.25, 0.5, 0.25])
 print(numbers_to_percents([1]) == [1])
 print(numbers_to_percents([1, 2, 3, 4]) == [0.1, 0.2, 0.3, 0.4])
 print(numbers_to_percents(i for i in range(5)))
+
+
+def zwroc_rosnace(fn, *args):
+    return list(filter(lambda arg: fn(arg) > arg, args))
+
+
+def f1(n):
+    return n ** 2 - 3 * n
+
+
+def f2(n):
+    return 100 - n
+
+
+def f3(word):
+    return word[::-1]
+
+
+print(zwroc_rosnace(f1, 4, 6, 2, -5) == [6, -5])
+print(zwroc_rosnace(f2, *range(100)) == list(range(50)))
+print(zwroc_rosnace(f3, "python", "nie", "jest", "bardzo", "fajny") == ['jest', 'bardzo', 'fajny'])
+
+
+def zwroc_rosnace_wzgledem_popredniego(fn, *args):
+    prev = None
+    result = []
+    for i in args:
+        actual = fn(i)
+        if prev is not None and actual > prev:
+            result.append(i)
+        prev = actual
+    return result
+
+def f1(n):
+    return n ** 2 - 3 * n
+
+
+def f2(n):
+    return 100 - n
+
+
+def f3(word):
+    return word[::-1]
+
+
+print(zwroc_rosnace_wzgledem_popredniego(f1, 4, -5, 6, 2)== [-5])
+print(zwroc_rosnace_wzgledem_popredniego(f2, *range(100)) == [])
+print(zwroc_rosnace_wzgledem_popredniego(f3, "python", "nie", "jest", "bardzo", "fajny") == ['jest', 'fajny'])
