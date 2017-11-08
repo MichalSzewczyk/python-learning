@@ -2,6 +2,7 @@ from functools import reduce
 from itertools import chain
 
 import collections
+from random import random, randint
 
 
 def log(text, optional=None):
@@ -167,6 +168,19 @@ def get_primes(number):
         counter += 1
 
 
-for i in get_primes(10):
+# for i in get_primes(10):
+#     print(i)
+# print(get_primes(10))
+
+
+def lotto():
+    counter = 0
+    while counter < 6:
+        counter += 1
+        yield randint(1, 49)
+
+
+for i in lotto():
     print(i)
-print(get_primes(10))
+
+
