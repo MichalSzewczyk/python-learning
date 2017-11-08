@@ -1,15 +1,54 @@
-def _filter(func=None, iterable=[]):
-    """Filtruje z iterable elementy, dla których funkcja func zwraca False zostawiając pozostałe"""
-    for value in iterable:
-        if func(value):
-            pass
+import timeit
+from functools import reduce
+from itertools import chain
 
 
+def flow_rate(weight, time, period=60, units_per_kg=1000):
+    """ Funkcja wylicza ile wagi produktu przybyło/ubyło w jednostce czasu """
+    return weight * units_per_kg / time * period
 
-from types import GeneratorType
 
-print(isinstance(_filter(), GeneratorType))
-print(list(filter(lambda x: x > 0, [0, -3, 1, 6])) == list(_filter(lambda x: x > 0, [0, -3, 1, 6])))
-print(list(filter(None, [2, -3, 1, 6])) == list(_filter(None, [2, -3, 1, 6])))
-print(list(filter(None, [True, False, False])) == list(_filter(None, [True, False, False])))
-print(list(filter(None, [0, -3, 1, 6])) == list(_filter(None, [0, -3, 1, 6])))
+weight = 0.5
+time = 3
+
+flow = flow_rate(weight, time, period=60, units_per_kg=1000)
+print("{} grams per minute".format(flow))
+
+flow = flow_rate(weight, time, period=1, units_per_kg=1)
+print("{0:.3} kg per second".format(flow))
+
+flow = flow_rate(weight, time)
+print("{0:.3} grams per minute".format(flow))
+
+try:
+    flow = flow_rate(weight, time, 3600, 2.2)
+except TypeError:
+    print(True)
+
+
+def time(func):
+    """ Wypisuje czas wywołania udekorowanej funckji """
+
+    def decorate(*args, **kwargs):
+        start = timeit.default_timer()
+        result = func(*args, **kwargs)
+        exec_time = timeit.default_timer() - start
+        print('Function {} took: {} seconds.'.format(func.__name__, exec_time))
+        return result
+
+    return decorate
+
+
+@time
+def squares_list(n):
+    squares = []
+    for i in range(n):
+        squares.append(i ** 2)
+    return squares
+
+
+@time
+def squares_comprehension(n):
+    return [i ** 2 for i in range(n)]
+
+
