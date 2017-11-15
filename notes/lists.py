@@ -95,3 +95,33 @@ print(li1 + li2)
 # by extend method:
 li1.extend(li2)
 print(li1)
+
+# access list elements by negative index:
+list = [1, 2, 3, 4]
+print(list[-1])
+# elements can be accessed by index in range: <-n;n)
+print(list[-len(list)] == 1)
+print(list[len(list) - 1] == 4)
+print(list[0] == 1)
+print(list[-1] == 4)
+# but in negative and positive indexing we can receive index out of bounds exception:
+# print(list[-5] == list[4])
+
+# it is possible to create nested lists:
+nested_list = [[], [], [], []]
+# to access it's elements we have to use [][]
+nested_list[1].append(1)
+print(nested_list)
+
+# Methods:
+any_list = [1, 3, 2, 4]
+any_list.extend(range(3))
+any_list.clear()
+any_list.insert(0, 'test')
+any_list.remove('test')
+any_list.count('test')
+any_list.pop()
+any_list.sort()
+any_list.reverse()
+del any_list[0]
+

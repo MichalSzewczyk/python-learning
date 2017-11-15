@@ -28,3 +28,4 @@ for i, j in zip('foo'.split(), 'bar'.split()):
 # iterate with index:
 for (index, value) in ['foo', 'bar', 'foobar']:
     print('Element ' + value + 'available on index ' + index)
+

@@ -26,3 +26,5 @@ empty_tuple = ()
 # unpack tuple into variables:
 a, b, c = (1, 2, 3)
 a, *b, c = (1, 2, 3, 4)
+
+print(b)

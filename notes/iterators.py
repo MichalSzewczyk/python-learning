@@ -104,5 +104,30 @@ result = reduce(lambda x, y: str(x) + str(y), itertools.combinations(range(10), 
 print(result)
 
 # tee returns n iterators from single iterator:
-result = reduce(lambda x, y: str(x) + str(y), map(lambda x: list(x), itertools.tee(range(20), 5)))
-print(result)
+# result = reduce(lambda x, y: str(x) + str(y), map(lambda x: list(x), itertools.tee(range(20), 5)))
+# print(result)
+
+
+# range method: range(start_open=0, end_closed, step=1)
+# if start is grater then stop and step is incremental then no execution is performed
+for i in range(19, 4, 2):
+    print(i)
+# It is possible to iterate backwards
+for i in range(19, 4, -2):
+    print(i)
+# It is possible to iterate forwards
+for i in range(11, 15, 2):
+    print(i)
+# It is possible to iterate backwards over negative values
+for i in range(-4, -19, -2):
+    print(i)
+# It is possible to iterate forwards over negative values
+for i in range(-20, -15, 2):
+    print(i)
+# By default start is 0 and step is 1:
+for i in range(5):
+    print(i)
+
+# iterate in reverse order:
+for i in reversed(range(10)):
+    print(i)

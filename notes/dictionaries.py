@@ -40,34 +40,54 @@ any_dict.clear()
 
 # Dictionary declaration
 # empty dict:
-dict = {}
+any_dict = {}
 # fullfiled dict:
-dict = {"foo": 0, "bar": 1}
+any_dict = {"foo": 0, "bar": 1}
 # dict = {[]: 0} - raises: TypeError: unhashable type: 'list'
 # but tuple as key is ok
-dict = {(1,): 2}
+any_dict = {(1,): 2}
 
 # get all keys from dictionary:
-dict.keys()
+any_dict.keys()
 # get all values from dictionary
-dict.values()
+any_dict.values()
 # check for existence of key:
-'key' in dict
+'key' in any_dict
 
 # get value by key - causes KeyError when not present:
-dict.setdefault("key", "value")
-dict['key']
+any_dict.setdefault("key", "value")
+any_dict['key']
 
 # get value by key - returns none when not present
-dict.get('key')
+any_dict.get('key')
 
 # add to key when not present:
-dict.setdefault('key', 'value')
+any_dict.setdefault('key', 'value')
 
 # override key or add if not present:
-dict.update({'key2': 'value2'})
-print(dict)
+any_dict.update({'key2': 'value2'})
+print(any_dict)
 
 # delete key-value:
-del dict['key2']
-print(dict)
+del any_dict['key2']
+print(any_dict)
+
+# two ways of dictionary creation:
+dictionary_1 = {'foo': 'bar'}
+dictionary_2 = dict(foo='bar')
+print(dictionary_1 == dictionary_2)
+
+# remove and return value by key:
+print(dictionary_1.pop('foo'))
+# remove and return the whole entry (the last one)
+print(dictionary_2.popitem())
+
+# the following methods are dynamic:
+any_dictionary = {1: 2, 3: 4}
+keys = any_dictionary.keys()
+values = any_dictionary.values()
+entries = any_dictionary.items()
+any_dictionary.update({5: 6})
+print(keys)
+print(values)
+print(entries)

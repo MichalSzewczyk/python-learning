@@ -25,3 +25,15 @@ first_set | second_set
 first_set & second_set
 # symmetric difference:
 first_set ^ second_set
+
+set_1 = set('foobar')
+set_2 = set('qwerty')
+# intersection:
+print(set_1 & set_2)
+# union
+print(set_1 | set_2)
+# difference
+print(set_1 - set_2)
+# symmetric difference
+print(set_1 ^ set_2)
+

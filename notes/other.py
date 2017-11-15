@@ -78,3 +78,99 @@ if d:
     print('Not empty')
 else:
     print('Empty')
+
+# sort list:
+any_list = [3, 4, 2, 1, 2]
+any_list.sort()
+
+# sort set:
+any_set = {3, 1, 2, 4}
+sorted(any_set)
+
+dictionary = {'foo': 1, 'bar': 2}
+sorted(dictionary.items(), key=lambda x: x[0])
+
+# eval(string) - executes passed string as it is python command:
+eval('print(\'test\')')
+# repr(value) - returns string representation of passed object:
+print(repr([1, 2, 3]))
+# char to ascii conversion:
+print(ord('a'))
+
+# ascii to char convertion:
+# print(unichr(97))
+
+# convert int to hexadecimal system string representation:
+print(hex(15))
+
+# convert int to hexadecimal system string representation:
+print(hex(15))
+
+# convert int to octal system string representation:
+print(oct(15))
+
+# get an absolute value:
+print(abs(-2))
+
+print(all([True, False]))
+
+print(any([True, False]))
+
+print(bin(10))
+
+print(bool(0))
+
+print(bytearray([1, 2, 3, 4]))
+
+print(chr(97))
+
+# print(cmp(1,2))
+
+print(complex(10))
+
+dict(key='')
+
+print(dir())
+
+print(divmod(1, 2))
+
+for i in enumerate([1, 2, 3, 4, 5], 4):
+    print(i)
+
+s = frozenset([1, 2, 3, 4, 5])
+dictionary = {s: ''}
+
+print(globals())
+
+print(hash('asd'))
+
+help('str')
+
+print(id('foo'))
+
+print(isinstance(10, int))
+
+print(max(1, 2, 3))
+
+print(ord('a'))
+print(ord('a'))
+
+print(pow(2, 3))
+
+
+@property
+def foo():
+    pass
+
+
+# foo.__setattr__('asd', lambda x: print(x))
+# print(foo.asd('test'))
+
+
+print(repr('asd'))
+
+print(round(1.234, 3))
+
+print([1, 2, 3, 4, ][slice(12)])
+
+print(sorted({2: 3, 1: 2}))
