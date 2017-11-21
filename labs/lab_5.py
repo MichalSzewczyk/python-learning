@@ -1,3 +1,4 @@
+# ZAD 1
 class FrozenDictionary(object):
     """
     Odpowiednik frozenset dla zbiorów, czyli słownik, który nie jest modyfikowalny,
@@ -49,3 +50,106 @@ for d in dicts:
 print(s)
 
 
+# ZAD 2
+class BagOfWords:
+    def __init__(self, text):
+        if isinstance(text, str):
+            self.dictionary = self.get_dict_from_list_of_words(text.split(' '))
+        else:
+            with text as f:
+                self.dictionary = self.get_dict_from_list_of_words(f.read().split(' '))
+
+    def get_dict_from_list_of_words(self, word_list):
+        dictionary = {}
+        for word in word_list:
+            if word not in dictionary.keys():
+                dictionary[word] = 0
+            dictionary[word] += 1
+        return dictionary
+
+    def __repr__(self):
+        result = ''
+        for item in self.dictionary.items():
+            result += item[0] + ':' + str(item[1]) + ' '
+        return result
+
+    def __contains__(self, item):
+        return item in self.dictionary
+
+    def __iter__(self):
+        for item in sorted(self.dictionary):
+            yield item
+
+    def __add__(self, other):
+        for i in other.dictionary.items():
+            if i[0] in self.dictionary.keys():
+                self.dictionary[i[0]] += i[1]
+            else:
+                self.dictionary[i[0]] = i[1]
+        return self
+
+    def __setitem__(self, key, value):
+        self.dictionary[key] = value
+
+    def __getitem__(self, item):
+        return self.dictionary[item]
+
+
+bow = BagOfWords("ala ma kota ala ma ala")
+print('ala' in bow)
+for word in bow:
+    print(word)
+
+bow = BagOfWords(open("plik.txt"))
+bow1 = BagOfWords("ala ma kota ala ma ala")
+bow2 = BagOfWords("tomek tez ma kota")
+bow3 = bow1 + bow2
+print('tomek' in bow1)  # False
+print('tomek' in bow3)  # True
+print('ala' in bow3)  # True
+print(bow3)  # ala:3, ma:3, kota:2, tez:1, tomek:1
+print(bow1["ala"])  # 3
+print(bow3["ala"])  # 3
+
+bow3['tomek'] = 10
+for el in bow3:
+    print(el)
+
+
+# ZAD 3
+class BagOfPairsOfWords(BagOfWords):
+    def __init__(self, text):
+        super().__init__(text)
+
+    def __repr__(self):
+        result = ''
+        for item in self.dictionary.items():
+            result += item[0] + ' '
+        return result
+
+    def get_dict_from_list_of_words(self, word_list):
+        dictionary = {}
+        prev = None
+        for word in word_list:
+            actual = (prev, word)
+            if actual not in dictionary.keys():
+                dictionary[actual] = 0
+            dictionary[actual] += 1
+            prev = word
+
+        end = (prev, None)
+        if end not in dictionary.keys():
+            dictionary[end] = 0
+        dictionary[end] += 1
+        return dictionary
+
+    def __iter__(self):
+        for item in sorted(self.dictionary, key=lambda x: str(x[0])):
+            yield item
+
+
+bopow = BagOfPairsOfWords('ala ma kota ala ma psa')
+print(bopow[('ala', 'ma')] == 2)
+print(('ala', 'ma') in bopow)
+for word1, word2 in bopow:
+    print(word1, word2, bopow[(word1, word2)])
