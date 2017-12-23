@@ -42,4 +42,38 @@ any_array = np.arange(1, 5, 1)
 print(any_array)
 print(any_array.reshape(4, 1))
 
+# Ways to resize matrix:
+# 1. Resize the original matrix:
+matrix = np.array([1, 2, 3])
+print(matrix)
+matrix.resize(3, 1)
+print(matrix)
+# 2. Return resized copy of matrix (without modifying the original):
+print(matrix.reshape(1, 3))
+
+# Accessing elements of matrix by indexes:
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print(matrix)
+# Get first row:
+print(matrix[0])
+# Get first col:
+print(matrix[:, 0])
+# Generally it's possible to extract submatrix from matrix using standard python way: (start:stop:step)
+print(matrix[::, ::])
+
+# Ways to get size of matrix:
+# Get number of elements:
+print(matrix.size)
+# Get number of rows:
+print(matrix[:, 0].size)
+# Get number of cols:
+print(matrix[0].size)
+
+# Transpose matrix:
+print(np.transpose(matrix))
+
+# Flatten matrix to vector
+print(matrix.ravel())
+print(matrix.reshape(-1))
+
 
