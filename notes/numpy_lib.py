@@ -76,4 +76,24 @@ print(np.transpose(matrix))
 print(matrix.ravel())
 print(matrix.reshape(-1))
 
+# Adding/deleting elements:
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print(matrix)
+# Insert new row on the first position and flatten matrix to vector:
+print(np.insert(matrix, 1, [11, 22, 33]))
+# Insert new row on the first position
+print(np.insert(matrix, 1, [11, 22, 33], axis=0))
+# Insert new col on the first position
+print(np.insert(matrix, 1, [11, 22, 33], axis=1))
+# Append (insert as the last element) passed matrix (sizes of inserted and target matrices must be the same)
+print(np.append(matrix, [[11, 22, 33]], axis=0))
+# Delete row under 1 index from the matrix:
+print(np.delete(matrix, 1, axis=0))
+# Delete col under 1 index from the matrix:
+print(np.delete(matrix, 1, axis=1))
+# Delete rows under given indexes:
+print(np.delete(matrix, [0, 2], axis=0))
+# Delete cols under given indexes:
+print(np.delete(matrix, [1, 2], axis=1))
+
 
