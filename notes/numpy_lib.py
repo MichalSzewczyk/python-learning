@@ -111,3 +111,55 @@ print(np.add(matrix_1, matrix_2))
 print(matrix_1 + 1)
 # Add single value to all elements from matrix
 print(matrix_1 - 1)
+
+# Matrix multiplication:
+matrix_1 = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+matrix_2 = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+# Multiply each element by single value:
+print(matrix_1 * 2)
+# Dot product for two matrices - matrices multiplication:
+print(matrix_1, '\n')
+print(matrix_2, '\n')
+print(np.dot(matrix_1, matrix_2))
+
+# Matrix raised to the power of n
+# Traditional way
+print(matrix_1 ** 2)
+# Using NumPy
+print(np.power(matrix_1, 2))
+
+# Comparison of matrices:
+matrix_1 = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+matrix_2 = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+# Compare each element
+print(matrix_1 < matrix_2)
+print(matrix_1 == matrix_2)
+print(matrix_1 > matrix_2)
+
+# Verify if all/any of elements are true for the given predicate:
+print(np.all(matrix_1 <= matrix_2))
+print(np.any(matrix_1 <= matrix_2))
+
+# Divide and concatenate matrices:
+matrix_1 = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+matrix_2 = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+# Concatenate two matrices (add new rows):
+print(np.concatenate((matrix_1, matrix_2)))
+print(np.concatenate((matrix_1, matrix_2), axis=0))
+# Concatenate two matrices (add new cols):
+print(np.concatenate((matrix_1, matrix_2), axis=1))
+# Concatenate vertically
+print(np.vstack((matrix_1, matrix_2)))
+# Concatenate horizontally
+print(np.hstack((matrix_1, matrix_2)))
+# Split matrix horizontally:
+# Into 3 equal pieces
+print(np.hsplit(matrix_1, 3))
+# Over specified indexes: 0, n1, n2 ,..., nk, length-1
+print(np.hsplit(matrix_1, [1, 3]))
+# Split matrix vertically:
+# Into 3 equal pieces
+print(np.vsplit(matrix_1, 3))
+# Over specified indexes: 0, n1, n2 ,..., nk, length-1
+print(np.vsplit(matrix_1, [1, 3]))
