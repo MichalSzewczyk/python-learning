@@ -96,4 +96,18 @@ print(np.delete(matrix, [0, 2], axis=0))
 # Delete cols under given indexes:
 print(np.delete(matrix, [1, 2], axis=1))
 
-
+# Adding or subtracting matrices:
+matrix_1 = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+matrix_2 = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print(matrix_1)
+print(matrix_2)
+# Subtract two matrices
+print(matrix_1 - matrix_2)
+print(np.subtract(matrix_1, matrix_2))
+# Add two matrices
+print(matrix_1 + matrix_2)
+print(np.add(matrix_1, matrix_2))
+# Add single value to all elements from matrix
+print(matrix_1 + 1)
+# Add single value to all elements from matrix
+print(matrix_1 - 1)
