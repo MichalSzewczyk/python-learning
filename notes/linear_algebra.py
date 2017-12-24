@@ -67,3 +67,47 @@ print(matrix)
 matrix = np.random.poisson(5, 3)
 print(matrix)
 
+# Statistics:
+matrix = np.random.randint(5, size=(5, 5)) + 5
+print(matrix)
+# Maximum value
+print(matrix.max())
+# Minimum value
+print(matrix.min())
+# Sum of values
+print(matrix.sum())
+# Mean of values
+print(matrix.mean())
+# Median of values
+print(np.median(matrix))
+# Standard deviation of values
+print(matrix.std())
+# Variance of values
+print(matrix.var())
+# Covariance of values
+print(np.cov(matrix))
+
+# Sorting / searching
+matrix = np.random.randint(5, size=(5, 5)) + 5
+# Normal sorting
+print(np.sort(matrix))
+# Sorting with specified algorithm - returns sorted matrix
+print(np.sort(matrix, kind='quicksort'))
+# Sorting with specified algorithm - returns indexes of elements from input matrix
+print(np.argsort(matrix, kind='quicksort'))
+# Get index of maximum element in matrix:
+print(np.argmax(matrix))
+# Get index of minimum element in matrix:
+print(np.argmax(matrix))
+# Get indexes of elements which satisfy given predicate:
+print(np.argwhere(matrix == 9))
+# Get elements which satisfy given predicate:
+print(np.where(matrix == 9))
+
+# File operations
+matrix = np.random.rand(5, 5)
+# Save matrix to the file:
+# np.savetxt('example', matrix)
+# Load matrix from the file:
+# matrix = np.loadtxt('example')
+# print(matrix)
