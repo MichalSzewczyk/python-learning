@@ -1,3 +1,4 @@
+# NumPy is library designed for high performance mathematical operations in python
 import numpy as np
 
 # Create matrix using numpy:
