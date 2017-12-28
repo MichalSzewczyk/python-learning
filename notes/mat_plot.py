@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Print chart of the function (in range <0; length-1>)
 # assuming that index is the argument of function
@@ -121,3 +122,59 @@ plt.plot([1, 4, 5], [5, 6, 7], 'p')
 plt.plot([1, 4, 5], [5, 6, 7], 'h')
 # plt.show()
 
+# There can be multiple charts printed using single plot.
+# In that case they are represented as triples:
+# ([arguments], [function results for those arguments], 'string configuration')
+plt.plot([1, 2], [3, 4], 'r^', [0, 1], [4, 5], 'bv')
+# plt.show()
+
+# It is possible to pass only function results - in that case arguments are indexes of function results
+# and the chart is printed using standard, black line:
+plt.plot([1, 2], 'yo', [0, 1])
+# plt.show()
+
+# Chart is also configurable using keyword arguments:
+plt.plot([1, 2], [3, 4], linestyle='dashed', marker='o', color='green')
+# plt.show()
+
+# Set vertical and horizontal limits of plot:
+plt.plot([1, 2], [3, 4])
+plt.xlim(2, 4)
+plt.ylim(4, 8)
+# plt.show()
+
+# Set chart title and labels for each axis:
+plt.xlabel('x axis')
+plt.ylabel('y axis')
+plt.title('chart title')
+# plt.show()
+
+# Window parameters are also configurable:
+# figsize - (vertical size in inches, horizontal size in inches)
+plt.figure(figsize=(4, 6), dpi=100)
+# plt.show()
+
+plt.xticks([1, 2, 3])
+plt.yticks(np.linspace(2, 4, 10))
+plt.show()
+
+# Configure axis:
+ax = plt.gca()
+# Don't print right frame
+ax.spines['right'].set_color('none')
+# Don't print bottom frame
+ax.spines['bottom'].set_color('none')
+# Set ticks position to be under the x axis
+ax.xaxis.set_ticks_position('bottom')
+# Set ticks position to be on the right of the y axis
+ax.yaxis.set_ticks_position('right')
+# Set bottom border to the center
+ax.spines['top'].set_position(('data', 0))
+# Set bottom border to the center
+ax.spines['left'].set_position(('data', 0))
+# Set x ticks to range <-1, 1>
+plt.xticks(np.linspace(-1, 1, 5), np.linspace(-1, 1, 5))
+# Set y ticks to range <-1, 1>
+plt.yticks(np.linspace(-1, 1, 5), np.linspace(-1, 1, 5))
+
+plt.show()
