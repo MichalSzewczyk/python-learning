@@ -156,7 +156,7 @@ plt.figure(figsize=(4, 6), dpi=100)
 
 plt.xticks([1, 2, 3])
 plt.yticks(np.linspace(2, 4, 10))
-plt.show()
+# plt.show()
 
 # Configure axis:
 ax = plt.gca()
@@ -176,5 +176,55 @@ ax.spines['left'].set_position(('data', 0))
 plt.xticks(np.linspace(-1, 1, 5), np.linspace(-1, 1, 5))
 # Set y ticks to range <-1, 1>
 plt.yticks(np.linspace(-1, 1, 5), np.linspace(-1, 1, 5))
+# plt.show()
 
+# Show function charts, i.e. sin/cos functions:
+v1 = np.linspace(-10, 10, 500)
+x1 = np.sin(v1)
+plt.plot(v1, x1, 'rd', label='sin')
+v2 = np.linspace(-10, 10, 500)
+x2 = np.cos(v2)
+plt.plot(v2, x2, 'gv', label='cos')
+plt.legend('upper right')
+# Set font size:
+plt.rc('font', size=10)
+plt.title('Test')
+# plt.show()
+
+# Add single highlighted point on chart:
+v = np.linspace(-0, 3, 1000)
+y = np.sin(v)
+plt.plot(v, y, 'r-')
+plt.scatter([v[500]], [y[500]], color='green')
+# plt.show()
+
+# Linear chart
+y = np.random.normal(loc=0.5, scale=0.4, size=1000)
+y = y[(y > 0) & (y < 1)]
+y.sort()
+x = np.arange(len(y))
+
+plt.plot(x, y)
+plt.grid(True)
+plt.yscale('linear')
+# plt.show()
+
+# Logarithmic chart
+y = np.random.normal(loc=0.5, scale=0.4, size=1000)
+y = y[(y > 0) & (y < 1)]
+y.sort()
+x = np.arange(len(y))
+
+plt.plot(x, y)
+plt.grid(True)
+plt.yscale('log')
+plt.show()
+
+# The same as previous chart
+y = np.random.normal(loc=0.5, scale=0.4, size=1000)
+y = y[(y > 0) & (y < 1)]
+y.sort()
+x = np.arange(len(y))
+
+plt.semilogy(x, y)
 plt.show()
