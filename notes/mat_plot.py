@@ -218,7 +218,7 @@ x = np.arange(len(y))
 plt.plot(x, y)
 plt.grid(True)
 plt.yscale('log')
-plt.show()
+# plt.show()
 
 # The same as previous chart
 y = np.random.normal(loc=0.5, scale=0.4, size=1000)
@@ -227,4 +227,53 @@ y.sort()
 x = np.arange(len(y))
 
 plt.semilogy(x, y)
+# plt.show()
+
+# Statistics:
+# Print normal distribution in histogram:
+x = np.random.normal(size=100)
+print(x)
+
+plt.hist(x, bins=10)
+# plt.show()
+
+# Other charts
+x = [1, 2, 3, 4, 5, 6, 7]
+y = [5, 6, 7, 8, 9, 10, 11]
+plt.bar(x, y, align='center')
+plt.bar(y, x, color='r', align='edge')
+# plt.show()
+
+# Point charts:
+n = 1000
+X = np.random.normal(0, 1, n)
+Y = np.random.normal(0, 1, n)
+plt.scatter(X, Y)
+# plt.show()
+
+# Round charts
+x = np.random.uniform(5, 50, 5)
+plt.pie(x)
+# plt.show()
+
+# Many charts in single window
+x = np.linspace(0, 10, 10)
+plt.figure(1)
+plt.plot(x, x)
+plt.figure(2)
+plt.plot(x, x, 3)
+# plt.show()
+
+# Window parameters:
+# figsize       - size of single figure
+# dpi           - resolution (dots per inch)
+# facecolor     - color of the background
+# edgecolor     - color of frame edges
+# frameon       - indicates whether the frame should be shown
+
+plt.close('all')
+plt.figure(edgecolor='r', linewidth=10)
+X = np.linspace(-2 * np.pi, 2 * np.pi, 256, endpoint=True)
+S = np.sin(X)
+plt.plot(X, S, "b-")
 plt.show()
