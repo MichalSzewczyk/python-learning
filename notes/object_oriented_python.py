@@ -170,3 +170,115 @@ multi_derived.method()
 # In order to print all classes from which class is derived and this class, we have to use method: mro
 print(MultiDerived.mro())
 
+
+# It is possible to create the hook for object creation by overriding __init__ method:
+class Test:
+    def __init__(self):
+        print('creating')
+
+
+class TestHook(Test):
+    def __init__(self):
+        print('hook')
+
+
+# And the following will print 'hook' instead 'creating'
+test = TestHook()
+
+
+# Special methods in python:
+# 1. __init__(self, ...)        - constructor
+# 2. __contains__(self, key)    - enables verification like: x in object
+# 3. __add__(self, other)       - enabled operator +: x + y
+# 4. __iter__(self)             - enables iterating over the object: iter(object)
+# 5. __next__(self)             - enables getting next elements from objects: next(object)
+# 6. __getitem__(self, key)     - enables accessing elements like: obj[item]
+# 7. __len__(self)              - enables retrieval of length: len(obj)
+# 8. __lt__(self, other)        - enables comparison like: object < other
+# 9. __eq__(self, other)        - defines equality between objects: x == y
+# 10. __str__(self)             - returns string representation of the object: str(x)
+# 11. __repr__(self)            - return unambiguous string representation of an object
+# (not necessary to be human-readable like str)
+
+
+class MagicClass:
+    # Constructor:
+    def __init__(self, *args):
+        self.elements = [i for i in args]
+        self.counter = 0
+
+    # String representation:
+    def __str__(self):
+        result = 'Representation: ['
+        for i in self.elements:
+            result += str(i)
+        result += ']'
+        return result
+
+    def __eq__(self, other):
+        return self.elements == other.elements
+
+    def __gt__(self, other):
+        return len(self.elements) > len(other.elements)
+
+    def __lt__(self, other):
+        return len(self.elements) < len(other.elements)
+
+    def __repr__(self):
+        return self.__class__.__name__ + '[{}]'.format(self.elements)
+
+    def __len__(self):
+        return len(self.elements)
+
+    def __getitem__(self, item):
+        return '{} - {}'.format(self.elements[hash(item) % len(self.elements)], item)
+
+    def __add__(self, other):
+        return self.elements + other.elements
+
+    def __contains__(self, key):
+        return self.elements.__contains__(key)
+
+    def __iter__(self):
+        return iter(self.elements)
+
+    def __next__(self):
+        print('next invoked')
+        if len(self.elements) > self.counter:
+            return self.elements[self.counter]
+        self.counter += 1
+
+
+mc1 = MagicClass('foo', 'bar')
+mc2 = MagicClass('foo', 'bar')
+
+# __str__
+print(mc1)
+
+# __getattr__
+print(mc1['foo'])
+
+# __eq__
+print(mc1 == mc2)
+
+# __contains__
+print('foo' in mc1)
+
+# __lt__
+print(mc1 < mc2)
+
+# __gt__
+print(mc1 > mc2)
+
+# __len__
+print(len(mc1))
+
+# __add__
+print(mc1 + mc2)
+
+# __iter__
+for i in mc1:
+    print(i)
+
+# __next__
+print(next(mc1))
