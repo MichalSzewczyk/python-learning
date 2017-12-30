@@ -276,4 +276,13 @@ plt.figure(edgecolor='r', linewidth=10)
 X = np.linspace(-2 * np.pi, 2 * np.pi, 256, endpoint=True)
 S = np.sin(X)
 plt.plot(X, S, "b-")
+# plt.show()
+
+plt.close('all')
+X = np.linspace(0, 5, 10)
+Y = np.linspace(5, 20, 10)
+Z = X + Y
+M_X, M_Y = np.meshgrid(X, Y)
+ax = plt.subplot(projection='3d')
+ax.plot_surface(X, Y, Z, rstride=2, cstride=2, cmap=plt.cm.coolwarm, linewidth=1)
 plt.show()
