@@ -104,6 +104,7 @@ Test.any_function(test)
 # Method call:
 test.any_function()
 
+
 # Method = obejct + function
 # When invoking method, actually there is function invoked with first argument - object
 # on which the function was called
@@ -115,4 +116,57 @@ test.any_function()
 
 # In python there is no way to make the class member private.
 # Clients can modify anything.
+
+
+# Code style conventions:
+# 1. Method's first parameter should be 'self'
+# 2. To inform client that the class member should not be used, we add '_' before the attribute name
+# 3. Verbs for methods, nouns for data attributes
+
+
+# Inheritance:
+# To make class inheritance we add the base class into the brackets:
+class Base:
+    pass
+
+
+class Derived(Base):
+    pass
+
+
+# Since Python 3 classes inherits from Object class.
+# Class members lookup begins in the most derived class and goes up through inheritance hierarchy
+# It's possible to override methods from the base classes
+
+# In python there is support for multiple inheritance:
+class Base1:
+    def method(self):
+        print('base1')
+
+
+class Base3:
+    def method(self):
+        print('base2')
+
+
+class Base2:
+    def method(self):
+        print('base3')
+
+
+class MultiDerived(Base1, Base2, Base3):
+    pass
+
+
+# In case of multiple inheritance, attributes are looked up in the following order:
+# - up in the inheritance hierarchy
+# - from left to right on the same level of inheritance
+
+multi_derived = MultiDerived()
+multi_derived.method()
+
+# So previous invocation will print 'base1'
+
+# In order to print all classes from which class is derived and this class, we have to use method: mro
+print(MultiDerived.mro())
 
