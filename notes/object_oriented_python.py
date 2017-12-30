@@ -77,7 +77,42 @@ print(test.any_attribute)
 del test.any_attribute
 # The following code will print value of class level attribute
 print(test.any_attribute)
-del test.any_attribute
+del Test.any_attribute
 # And the following will rise Exception:
 # print(test.any_attribute)
+
+# It is possible to set attributes for objects and classes on the fly:
+test.any_not_existent_attribute = 100
+print(test.any_not_existent_attribute)
+# attributes inserted on the fly also are added to __dict__ attribute.
+print(test.__dict__)
+
+
+# Methods vs Functions in python:
+class Test:
+    def any_function(self):
+        print('hello!')
+
+
+test = Test()
+# The following is function - in order to call it it is necessary to pass an instance of Test class
+print(Test.any_function)
+# The following is method - it's already bounded to the object test
+print(test.any_function)
+# Function call:
+Test.any_function(test)
+# Method call:
+test.any_function()
+
+# Method = obejct + function
+# When invoking method, actually there is function invoked with first argument - object
+# on which the function was called
+# test.any_function() = Test.any_function(test)
+# But it's impossible to pass the 'self' argument to method. The following code will rise TypeError:
+# test.any_function(test)
+
+
+
+# In python there is no way to make the class member private.
+# Clients can modify anything.
 
