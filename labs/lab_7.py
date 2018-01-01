@@ -1,23 +1,61 @@
-import json
-from optparse import OptionParser
+import re
 
-parser = OptionParser()
-parser.add_option('-p', dest='start_point', help='Start point')
-parser.add_option('-s', dest='step', help='Step size')
-parser.add_option('-n', dest='number_of_steps', help='Steps number')
-parser.add_option('-a', dest='accuracy', help='Accuracy')
-options, args = parser.parse_args()
-print(args)
+pattern = 'RUN \d{6} COMPLETED. OUTPUT IN FILE \w+.dat. .*'
+# ex1
+with open('atoms.log') as atoms:
+    for line in atoms:
+        if re.search(pattern, line) is not None:
+            print(line)
+
+# ex2
+# Jun 29 20:18:40 noether sshd[5805]: Invalid user tester from 218.189.194.200
+# Niepoprawna nazwa użytkownika: "tester", połaczenie z 218.189.194.200 nawiązano 29 czerwca o godz. 20:18
+pattern = '(\w{3} \d{2} \d{2}:\d{2}:\d{2}) noether sshd\[5805\]: Invalid user (\w+) from (\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})'
+result = 'Niepoprawna nazwa użytkownika: "{}", połaczenie z {} nawiązano {}'
 
 
-class Payload(object):
-     def __init__(self, j):
-         self.__dict__ = json.loads(j)
+def convert_to_pl_month(month):
+    month = month.lower()
+    if month == 'jan':
+        return 'stycznia'
+    elif month == 'feb':
+        return 'lutego'
+    elif month == 'mar':
+        return 'marca'
+    elif month == 'apr':
+        return 'kwietnia'
+    elif month == 'may':
+        return 'maja'
+    elif month == 'jun':
+        return 'czerwca'
+    elif month == 'jul':
+        return 'lipca'
+    elif month == 'oug':
+        return 'sierpnia'
+    elif month == 'sep':
+        return 'wrzesnia'
+    elif month == 'oct':
+        return 'pazdziernika'
+    elif month == 'now':
+        return 'listopada'
+    elif month == 'dec':
+        return 'grudnia'
+    else:
+        print('fail')
 
-with open('timezone.data', 'r') as myfile:
-    data=myfile.read().replace('\n', '')
 
-print(data)
-payload = Payload(data)
+def convert_date(date_string: str):
+    result = ''
+    result += date_string[4:6] + ' '
+    result += convert_to_pl_month(date_string[0:3]) + ' o godzinie '
+    result += date_string[7:12]
+    return result
 
-print(payload)
+
+print(convert_date('Jun 29 20:18:40'))
+
+with open('messages.txt') as messages:
+    for line in messages:
+        search_result = re.search(pattern, line)
+        if search_result is not None:
+            print(result.format(search_result.group(2), search_result.group(3), convert_date(search_result.group(1))))
