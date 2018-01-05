@@ -99,3 +99,24 @@ print(s1[s1.notnull()])
 # It's possible to define the name of the series
 s.name = 'my_series_name'
 print(s)
+
+# DataFrame - data structure, which consists of rows and cols, similar to excel table
+# Create DataFrame from dictionary:
+df = pd.DataFrame({'col_1': ['row_1_in_col_1', 'row_2_in_col_1', 'row_3_in_col_1', ],
+                   'col_2': ['row_1_in_col_2', 'row_2_in_col_2', 'row_3_in_col_2', ],
+                   'col_3': ['row_1_in_col_3', 'row_2_in_col_3', 'row_3_in_col_3', ]},
+                  index=['row_1', 'row_2', 'row_3', ])
+print(df)
+
+# Create DataFrame from Series:
+df = pd.DataFrame({'col_1': pd.Series(['row_1_in_col_1', 'row_2_in_col_1', ], index=['row_1', 'row_2']),
+                   'col_2': pd.Series(['row_1_in_col_2', 'row_2_in_col_2', ], index=['row_1', 'row_3'])}, )
+print(df)
+
+# Specify which columns and rows should be shown - if values for given column/row are not present,
+# then there are NaN/None values inserted:
+df = pd.DataFrame({'col_1': pd.Series({1: 'row_1_col_1', 2: 'row_2_col_1'}),
+                   'col_2': pd.Series({1: 'row_1_col_2', 3: 'row_2_col_2'})}, columns=['col_1', 'col_2'],
+                  index=[1, 2, 3, 4])
+
+print(df)
