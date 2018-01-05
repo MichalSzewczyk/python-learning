@@ -1,5 +1,5 @@
+import numpy as np
 import pandas as pd
-from pandas import Series
 
 # Pandas - is an open source library created in order to give support for easy data analysis
 # Pandas adds two new data structures to python:
@@ -61,10 +61,41 @@ print(s.get('not_present', 'default'))
 # by index and by label, but new value has to be of the same type as previous one:
 s[0] = 10
 s['b'] = 20
+s['c'] = None
 print(s)
 
 # It's also possible to change value of multiple values which satisfies given condition:
 s[s < 5] = 10
 print(s)
 
+# We can perform logical operations on series, in that case logical operation is performed for each element in series:
+print(s < 10)
+# Verify if given key is in the series
+print('a' in s)
 
+# We can perform mathematical operations on series:
+# Operations between two series
+s1 = pd.Series([3, 1, 4, 2, 5, 8, 7, 9, None])
+s2 = pd.Series([30, 10, 40, 20, 5, 8, 7, 9])
+print(s1 - s2)
+print(s1 + s2)
+print(s1 * s2)
+print(s1 / s2)
+# Operations between series and
+print(s1 - 7)
+print(s1 + 7)
+print(s1 * 7)
+print(s1 / 7)
+# And perform operations from numpy lib
+print(np.square(s1))
+
+# Verification if elements are defined:
+print(s1.notnull())
+print(s1.isnull())
+
+# Get only defined elements:
+print(s1[s1.notnull()])
+
+# It's possible to define the name of the series
+s.name = 'my_series_name'
+print(s)
