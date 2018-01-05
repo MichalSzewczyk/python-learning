@@ -57,3 +57,14 @@ print(s[0], s['a'])
 # Or get value or default value:
 print(s.get('not_present', 'default'))
 
+# Series have the feature which enables us to replace elements also in two ways -
+# by index and by label, but new value has to be of the same type as previous one:
+s[0] = 10
+s['b'] = 20
+print(s)
+
+# It's also possible to change value of multiple values which satisfies given condition:
+s[s < 5] = 10
+print(s)
+
+
