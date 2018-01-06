@@ -185,3 +185,39 @@ print(football.at[0, 'team'])
 # Or by position:
 print(football.iat[0, 1])
 
+# Get only those values, which satisfies given predicate:
+print(football[football.year > 2011])
+
+# Get only those values, which satisfies given predicate:
+print(football[football.year > 2011])
+
+# Get maximum value from given column:
+print(football['year'].max())
+
+# Get mean value from given column:
+print(football['year'].mean())
+
+# Get mean values for given columns:
+print(football[['year', 'losses']].mean())
+
+# Modify existing values of given cells:
+football.loc[2, ['losses']] = 'test'
+print(football)
+
+# Or modify all rows in single column:
+football['losses'] = 0
+print(football)
+
+# Transpose matrix:
+print(football.T)
+
+# Increment values in single col:
+print(football['losses'] + 10)
+
+# Delete the whole column:
+del football['losses']
+print(football)
+
+# Delete the whole row:
+print(football[football.index != 0])
+
