@@ -221,3 +221,38 @@ print(football)
 # Delete the whole row:
 print(football[football.index != 0])
 
+# Sorting:
+# Sort rows by index - descending:
+print(football.sort_index(axis=0, ascending=False))
+
+# Sort cols by index - descending:
+print(football.sort_index(axis=1, ascending=True))
+
+# Sort rows by specified column:
+print(football.sort_values('wins'))
+
+# Join DataFrames:
+left_frame = pd.DataFrame({'key': range(5),
+                           'left_value': ['a', 'b', 'c', 'd', 'e']})
+right_frame = pd.DataFrame({'key': range(2, 7),
+                            'right_value': ['f', 'g', 'h', 'i', 'j']})
+
+print(left_frame)
+print(right_frame)
+
+# Define col on which merging is performed and merging policy: how can be on of: left/right/inner/outer
+print(pd.merge(left_frame, right_frame, on='key', how='outer'))
+
+# Concatenate two DataFrames on given axis:
+
+# Add next rows
+print(pd.concat([left_frame, right_frame], axis=0))
+
+# Add next cols
+print(pd.concat([left_frame, right_frame], axis=1))
+
+# Flatten all columns
+print(football.unstack())
+
+# Flatten all columns
+print(football.stack())
