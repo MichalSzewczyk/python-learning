@@ -120,3 +120,68 @@ df = pd.DataFrame({'col_1': pd.Series({1: 'row_1_col_1', 2: 'row_2_col_1'}),
                   index=[1, 2, 3, 4])
 
 print(df)
+
+# Ways to get information about data inside DataFrame:
+# Get basic information such as: size, type of rows/cols, amount of RAM usage to store this DataFrame instance
+print(df.info())
+# Get information about types of columns
+print(df.dtypes)
+# Get name of index under given index:
+print(df.index[0])
+# Get all indexes:
+print(df.index)
+# Get name of column under given index:
+print(df.columns[0])
+# Get all columns:
+print(df.columns)
+# Get all of the basic statistics about given DataFrame:
+print(df.describe())
+# Get specified basic statistics about given DataFrame:
+print(df.describe().loc[['count', 'unique']])
+
+# We can easily get records from DataFrame in many ways:
+# Get first records:
+print(df.head(2))
+
+# Or get first records for only one column:
+print(df['col_1'].head(2))
+
+# Get the last elements:
+print(df.tail(2))
+
+# We can also modify DataFrame:
+# We can modify DataFrame by specified column (not by index as it is by default)
+print(df.set_index('col_1'))
+
+# By default set_index returns new DataFrame, but it is possible to modify current DataFrame:
+print(df.set_index('col_1', inplace=True))
+
+# Ways of data retrieval
+data = {'year': [2010, 2011, 2012, 2011, 2012, 2010, 2011, 2012],
+        'team': ['Bears', 'Bears', 'Bears', 'Packers', 'Packers', 'Lions', 'Lions', 'Lions'],
+        'wins': [11, 8, 10, 15, 11, 6, 10, 4],
+        'losses': [5, 8, 6, 1, 5, 10, 6, 12]}
+football = pd.DataFrame(data)
+print(football)
+
+# Get single column:
+print(football['year'])
+
+# Get more then one column:
+print(football[['year', 'team']])
+
+# Get specified rows by index:
+print(football.loc[2:3])
+
+# Get specified rows by their position:
+print(football.iloc[2:3])
+
+# Get sub DataFrame from current DataFrame:
+print(football.loc[2:3, ['team', 'wins']])
+
+# Get single element by labels:
+print(football.at[0, 'team'])
+
+# Or by position:
+print(football.iat[0, 1])
+
