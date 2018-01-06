@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pylab
 
 # Pandas - is an open source library created in order to give support for easy data analysis
 # Pandas adds two new data structures to python:
@@ -256,3 +257,27 @@ print(football.unstack())
 
 # Flatten all columns
 print(football.stack())
+
+# Import/export
+
+# Export to csv
+# football.to_csv('file_name')
+# Import from csv
+# df = pd.read_csv('file_name')
+
+# Export to excel file, installation required: !pip install xlwt
+# football.to_excel('file_name', sheet_name='some sheet')
+
+# Import from excel file:
+# pd.read_excel('dane.xls')
+
+# Export to txt:
+# football.to_csv('file.txt')
+
+# Import from txt
+# pd.read_csv('file.txt')
+
+# football.cumsum()
+# football.plot(figsize=(10, 10))
+
+# pylab.show()
