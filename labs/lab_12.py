@@ -22,32 +22,88 @@ print(
     'Number of females: {}, and number of males: {}'.format(len(df[df.Gender == 'F']), len(df[df.Gender == 'M'])))
 
 # 1.6
-print(df.groupby(['Name']).size().reset_index(name='count').sort_values('count', ascending=False).head(10))
+print(df.groupby(['Name']).aggregate(pd.np.sum).sort_values('Count', ascending=False).head(10))
 
 # 1.7
 
-most_popular_for_all = df.groupby(['Name']).size().reset_index(
-    name='count').sort_values('count', ascending=False).head(
+most_popular_for_all = df.groupby(['Name']).aggregate(pd.np.sum).sort_values('Count', ascending=False).head(10)
+most_popular_for_males = df[df.Gender == 'M'].groupby(['Name']).aggregate(pd.np.sum).sort_values('Count',
+                                                                                                 ascending=False).head(
     10)
-most_popular_for_males = df[df.Gender == 'M'].groupby(['Name']).size().reset_index(name='count').sort_values('count',
-                                                                                                             ascending=False).head(
+most_popular_for_females = df[df.Gender == 'F'].groupby(['Name']).aggregate(pd.np.sum).sort_values('Count',
+                                                                                                   ascending=False).head(
     10)
-most_popular_for_females = df[df.Gender == 'F'].groupby(['Name']).size().reset_index(name='count').sort_values('count',
-                                                                                                               ascending=False).head(
-    10)
-print(df[df.Name == 'Elizabeth'].groupby(['Name']).size().reset_index(name='count').sort_values('count',
-                                                                                                ascending=False).head(
-    10))
-plt_for_all = most_popular_for_all.plot(x='Name', y='count')
-plt_for_all.set_xticklabels(most_popular_for_all.Name)
+plt_for_all = most_popular_for_all.plot(y='Count')
+plt_for_all.set_xticklabels(most_popular_for_all.index)
 
-plt_for_males = most_popular_for_males.plot(x='Name', y='count')
-plt_for_males.set_xticklabels(most_popular_for_males.Name)
+plt_for_males = most_popular_for_males.plot(y='Count')
+plt_for_males.set_xticklabels(most_popular_for_males.index)
 
-plt_for_females = most_popular_for_females.plot(x='Name', y='count')
-plt_for_females.set_xticklabels(most_popular_for_females.Name)
-
+plt_for_females = most_popular_for_females.plot(y='Count')
+plt_for_females.set_xticklabels(most_popular_for_females.index)
 # plt.show()
 
 # 1.8
-print(df.groupby(['Name']))
+grouped = df.groupby(['Name'])
+result = len(df.groupby(['Name']).aggregate(pd.np.sum))
+print(result)
+
+
+# 1.9
+def name_generator(n):
+    c = 0
+    while c < n:
+        c += 1
+        yield df['Name'].sample().iat[0]
+
+
+for i in name_generator(10):
+    print(i)
+
+# 1.10.1
+print('Most frequent name: {}'.format(
+    df.groupby(['Name']).aggregate(pd.np.sum).sort_values(by='Count', ascending=False).head(1).index[0]))
+
+# 1.10.2
+print('Mean: {}'.format(
+    df.groupby(['Name']).aggregate(pd.np.sum).sort_values(by='Count', ascending=False).mean()['Count']))
+print('Median: {}'.format(
+    df.groupby(['Name']).aggregate(pd.np.sum).sort_values(by='Count', ascending=False).median()['Count']))
+print('Std: {}'.format(
+    df.groupby(['Name']).aggregate(pd.np.sum).sort_values(by='Count', ascending=False).std()['Count']))
+
+# 2.1
+df = pd.read_csv('lab11_files/occupation.csv', delimiter='|')
+
+# 2.2
+print('First 25 records: \n{}'.format(df.head(25)))
+
+# 2.3
+print('First 25 records: \n{}'.format(df.tail(10)))
+
+# 2.4
+print('Col number: {}'.format(len(df.columns)))
+print('Row number: {}'.format(df.count()[0]))
+
+# 2.5
+print('Column names: {}'.format(df.columns.values))
+
+# 2.6
+plt.close('all')
+print('Number of occupations: {}'.format(len(df.groupby(['occupation']))))
+
+# 2.7
+# All
+df.groupby(['occupation']).count().plot.pie(y='user_id', autopct='%1.0f%%', figsize=(10, 10))
+# Top ten
+df.groupby(['occupation']).count().sort_values(by='user_id').head(10).append(
+    pd.Series({'Inne': sum(df.groupby(['occupation']).count().sort_values(by='user_id')['user_id'])}),
+    ignore_index=True).plot.pie(
+    y='user_id',
+    autopct='%1.0f%%',
+    figsize=(10, 10))
+# Top ten with others
+top_ten_with_others = df.groupby(['occupation']).count().sort_values(by='user_id', ascending=False).head(10)
+top_ten_with_others.loc['Inne'] = df.groupby(['occupation']).count().sort_values(by='user_id', ascending=False).sum()
+top_ten_with_others.plot.pie(y='user_id')
+plt.show()
