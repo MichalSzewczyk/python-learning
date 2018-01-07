@@ -1,3 +1,4 @@
+import matplotlib
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -106,4 +107,28 @@ df.groupby(['occupation']).count().sort_values(by='user_id').head(10).append(
 top_ten_with_others = df.groupby(['occupation']).count().sort_values(by='user_id', ascending=False).head(10)
 top_ten_with_others.loc['Inne'] = df.groupby(['occupation']).count().sort_values(by='user_id', ascending=False).sum()
 top_ten_with_others.plot.pie(y='user_id')
+# plt.show()
+
+# 2.8
+# Ten most popular occupations with males/females
+plt.close('all')
+males = df[df.gender == 'M'].groupby(['occupation'], as_index=False).count().sort_values(by='occupation',
+                                                                                         ascending=False)[
+    ['occupation', 'user_id']]
+females = df[df.gender == 'F'].groupby(['occupation'], as_index=False).count().sort_values(by='occupation',
+                                                                                           ascending=False)[
+    ['occupation', 'user_id']]
+males_and_females = pd.merge(males, females, on='occupation')
+males_and_females.columns = ['occupation', 'males', 'females']
+
+plt.close('all')
+
+ax = males_and_females[['males', 'females']].plot(kind='bar')
+ax.set_xticklabels(males_and_females.occupation)
+# plt.show()
+
+# 2.9
+average_age = df.groupby(['occupation'], as_index=False).aggregate(pd.np.average)[['occupation', 'age']]
+t = average_age.plot(figsize=(30, 5))
+t.set_xticklabels(average_age['occupation'], rotation=90)
 plt.show()
