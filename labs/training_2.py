@@ -1,4 +1,6 @@
 # Przygotuj funkcję, która usunie duplikaty z listy.
+import collections
+
 my_list = ['art', 'lean', 'desk', 'flavor', 'compare', 'secretive', 'narrow', 'flavor', 'flavor', 'miami', 'teaching',
            'fire', 'rate', 'light', 'jump', 'offer', 'fold', 'abstract', 'box', 'story', 'bomb', 'grape', 'grin',
            'jackhammer', 'torchlight', 'flugelhorn', 'verkrampte', 'grandchild', 'witchcraft', 'pawnbroker',
@@ -21,16 +23,22 @@ print(len(f(my_list)) == 71)
 # Popraw poniższy kod na bardziej optymalny (wykorzystaj collections.Counter)
 A = ["Cupcake", "ipsum", "dolor", "sit", "amet", "marshmallow", "Cupcake", "ipsum", "Cupcake"]
 
-d = dict()
-for a in A:
-    if a not in d:
-        d[a] = 1
-    else:
-        d[a] += 1
+print(collections.Counter(A).most_common())
 
-most_common = []
-for key in sorted(d, key=d.get, reverse=True)[:3]:
-    most_common.append((key, d[key]))
-    print("%s: %i" % (key, d[key]))
+import numpy as np
 
-print(most_common)
+x = np.array(
+    [[-2, 2, 3, 4],
+     [5, 3, -1, 8],
+     [9, -4, 11, 12]])
+
+print(np.argwhere(x < 3).sum())
+
+
+def f1(message1, message2):
+    return (message1[2] == message2[2]) and (message1[-2] == message2[- 2])
+
+
+print(f1("abarypxtw", "orakkkasdto"))
+
+
